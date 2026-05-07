@@ -26,7 +26,7 @@ n == matrix.length == matrix[i].length
 -1000 <= matrix[i][j] <= 1000
 """
 
-# time: O(n^2)
+# time: O(n)
 # space: O(n)
 
 class Solution:
