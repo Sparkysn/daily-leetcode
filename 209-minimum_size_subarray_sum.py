@@ -44,7 +44,6 @@ class Solution:
                 window_sum -= nums[left]
                 left += 1
             right += 1
-            print(ans)
     
         return ans
 
