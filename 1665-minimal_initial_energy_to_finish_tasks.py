@@ -16,7 +16,7 @@ You can finish the tasks in any order you like.
 
 Return the minimum initial amount of energy you will need to finish all the tasks.
 
- 
+
 
 Example 1:
 
@@ -51,7 +51,7 @@ Starting with 27 energy, we finish the tasks in the following order:
     - 1st task. Now energy = 17 - 1 = 16.
     - 4th task. Now energy = 16 - 4 = 12.
     - 6th task. Now energy = 12 - 6 = 6.
- 
+
 
 Constraints:
 
@@ -62,24 +62,24 @@ Constraints:
 # time: O(nlogn)
 # space: O(n)
 
+
 class Solution:
     def minimumEffort(self, tasks: List[List[int]]) -> int:
-        
+
         array_list = []
         for i in range(len(tasks)):
             diff_index = []
             diff_index.append(tasks[i][0])
             diff_index.append(tasks[i][1])
-            index = i
+
             diff_index.append(i)
             diff = tasks[i][1] - tasks[i][0]
             diff_index.append(diff)
             array_list.append(diff_index)
 
-        
         array_list.sort(key=lambda x: x[3], reverse=True)
 
-        total_counter  = 0
+        total_counter = 0
 
         for i in range(len(array_list)):
             total_counter += array_list[i][0]
@@ -89,7 +89,7 @@ class Solution:
         for i in range(len(array_list)):
             current_min = array_list[i][1]
             temp_offset = total_counter - current_min
-            if (temp_offset < 0):
+            if temp_offset < 0:
                 total_counter = current_min
                 total_counter -= array_list[i][0]
                 static_counter -= temp_offset
@@ -97,5 +97,3 @@ class Solution:
                 total_counter -= array_list[i][0]
 
         return static_counter
-
-

@@ -4,7 +4,7 @@ Given two strings s and goal, return true if and only if s can become goal after
 A shift on s consists of moving the leftmost character of s to the rightmost position.
 
 For example, if s = "abcde", then it will be "bcdea" after one shift.
- 
+
 
 Example 1:
 
@@ -14,7 +14,7 @@ Example 2:
 
 Input: s = "abcde", goal = "abced"
 Output: false
- 
+
 
 Constraints:
 
@@ -25,19 +25,17 @@ s and goal consist of lowercase English letters.
 # time: O(n^2)
 # space: O(n)
 
+
 class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
-        
 
         counter = -1
         temp_s = s
         checker_s = goal[0]
         for i in s:
             counter += 1
-            if (i == checker_s):
+            if i == checker_s:
                 new_temp_s = temp_s[counter:] + temp_s[:counter]
-                if (new_temp_s == goal):
+                if new_temp_s == goal:
                     return True
         return False
-
-

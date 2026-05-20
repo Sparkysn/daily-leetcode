@@ -10,7 +10,7 @@ It is guaranteed that each stone in boxGrid rests on an obstacle, another stone,
 
 Return an n x m matrix representing the box after the rotation described above.
 
- 
+
 
 Example 1:
 
@@ -43,7 +43,7 @@ Output: [[".","#","#"],
          ["#","*","."],
          ["#",".","*"],
          ["#",".","."]]
- 
+
 
 Constraints:
 
@@ -55,38 +55,38 @@ boxGrid[i][j] is either '#', '*', or '.'.
 # time: O(n)
 # space: O(n)
 
+
 class Solution(object):
     def rotateTheBox(self, boxGrid):
         """
         :type boxGrid: List[List[str]]
         :rtype: List[List[str]]
         """
-        
+
         length = len(boxGrid[0])
         height = len(boxGrid)
         new_boxGrid = [["" for _ in range(height)] for _ in range(length)]
-        mapper = {}
-        
-        for col in range(0,height):
+
+        for col in range(0, height):
             counter = 0
             pop = []
-            for row in range(length-1,-1,-1):
-                if (boxGrid[col][row] == "#"):
+            for row in range(length - 1, -1, -1):
+                if boxGrid[col][row] == "#":
                     pop.append("#")
-                elif (boxGrid[col][row] == "."):
+                elif boxGrid[col][row] == ".":
                     counter += 1
-                elif (boxGrid[col][row] == "*"):
-                    if (counter > 0):
+                elif boxGrid[col][row] == "*":
+                    if counter > 0:
                         for _ in range(counter):
                             pop.append(".")
                         counter = 0
                     pop.append("*")
-            if (counter > 0):
+            if counter > 0:
                 for _ in range(counter):
                     pop.append(".")
-                
+
             pop.reverse()
             for i in range(length):
-                new_boxGrid[i][height-1-col] = pop[i]
-        
+                new_boxGrid[i][height - 1 - col] = pop[i]
+
         return new_boxGrid

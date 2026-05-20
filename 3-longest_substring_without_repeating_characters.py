@@ -8,7 +8,7 @@ Companies
 Hint
 Given a string s, find the length of the longest substring without duplicate characters.
 
- 
+
 
 Example 1:
 
@@ -26,7 +26,7 @@ Input: s = "pwwkew"
 Output: 3
 Explanation: The answer is "wke", with the length of 3.
 Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
- 
+
 
 Constraints:
 
@@ -39,6 +39,7 @@ s consists of English letters, digits, symbols and spaces.
 
 from collections import Counter
 
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
 
@@ -47,11 +48,11 @@ class Solution:
         right = 0
         res = 0
 
-        while (right < len(s)):
+        while right < len(s):
             r = s[right]
             chars[r] += 1
 
-            while (chars[r] > 1):
+            while chars[r] > 1:
                 l = s[left]
                 chars[l] -= 1
                 left += 1
@@ -60,23 +61,24 @@ class Solution:
             right += 1
 
         return res
-    
+
+
 # time: O(n)
 # space: O(n)
+
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         ans = 0
         left = 0
-        right = 0 
+        right = 0
         pos_map = {}
 
-        while (right < len(s)):
-            if (s[right] in pos_map):
+        while right < len(s):
+            if s[right] in pos_map:
                 left = max(left, pos_map[s[right]] + 1)
             pos_map[s[right]] = right
             ans = max(right - left + 1, ans)
             right += 1
 
         return ans
-            

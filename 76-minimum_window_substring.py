@@ -10,7 +10,7 @@ Given two strings s and t of lengths m and n respectively, return the minimum wi
 
 The testcases will be generated such that the answer is unique.
 
- 
+
 
 Example 1:
 
@@ -28,7 +28,7 @@ Input: s = "a", t = "aa"
 Output: ""
 Explanation: Both 'a's from t must be included in the window.
 Since the largest window of s only has one 'a', return empty string.
- 
+
 
 Constraints:
 
@@ -36,7 +36,7 @@ m == s.length
 n == t.length
 1 <= m, n <= 105
 s and t consist of uppercase and lowercase English letters.
- 
+
 
 Follow up: Could you find an algorithm that runs in O(m + n) time?
 """
@@ -44,15 +44,16 @@ Follow up: Could you find an algorithm that runs in O(m + n) time?
 # time: O(m+n)
 # space: O(m+n)
 
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        dict_t = Counter(t) # window needs to fufil this counter
-        required = len(dict_t) # unique chars to fulfil
-        formed = 0 
+        dict_t = Counter(t)  # window needs to fufil this counter
+        required = len(dict_t)  # unique chars to fulfil
+        formed = 0
         window_counts = {}
-        
+
         left = right = 0
-        min_window_len = float('inf')
+        min_window_len = float("inf")
         result = ""
 
         while right < len(s):
@@ -69,7 +70,7 @@ class Solution:
                 window_len = right - left + 1
                 if window_len < min_window_len:
                     min_window_len = window_len
-                    result = s[left:right+1]
+                    result = s[left : right + 1]
 
                 # remove left from current window
                 window_counts[char] -= 1
@@ -78,18 +79,5 @@ class Solution:
                 left += 1
 
             right += 1
-        
+
         return result
-
-
-
-                
-        
-
-
-        
-
-
-    
-
-        

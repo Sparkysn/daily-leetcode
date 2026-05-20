@@ -7,7 +7,7 @@ conpanies icon
 Companies
 Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
 
- 
+
 
 Example 1:
 
@@ -21,7 +21,7 @@ Example 3:
 
 Input: nums = [1,2,3,1,2,3], k = 2
 Output: false
- 
+
 
 Constraints:
 
@@ -36,17 +36,16 @@ Constraints:
 
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        
+
         num_map = set()
         left = right = 0
-        
-        while right < len(nums):
 
+        while right < len(nums):
             # if window_size > k, reduce size by increasing left
             if right - left > k:
                 num_map.remove(nums[left])
                 left += 1
-            
+
             # check if the right exist in the num_map
             if nums[right] in num_map:
                 return True
@@ -54,8 +53,3 @@ class Solution:
             right += 1
 
         return False
-
-
-                
-
-
