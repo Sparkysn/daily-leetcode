@@ -9,7 +9,7 @@ We define a harmonious array as an array where the difference between its maximu
 
 Given an integer array nums, return the length of its longest harmonious subsequence among all its possible subsequences.
 
- 
+
 
 Example 1:
 
@@ -41,7 +41,7 @@ Explanation:
 
 No harmonic subsequence exists.
 
- 
+
 
 Constraints:
 
@@ -52,23 +52,23 @@ Constraints:
 # time: O(nlogn)
 # space: O(logn)
 
+
 class Solution:
     def findLHS(self, nums: List[int]) -> int:
         nums.sort()
 
         left = right = 0
         max_ans = 0
-        
-        while right < len(nums):
 
+        while right < len(nums):
             # increase left until difference is less than 2
             while nums[right] - nums[left] > 1:
                 left += 1
-            
+
             # take snapshot of max when is 1
             if nums[right] - nums[left] == 1:
                 max_ans = max(max_ans, right - left + 1)
-            
+
             right += 1
 
         return max_ans
