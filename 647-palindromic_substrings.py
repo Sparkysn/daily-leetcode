@@ -58,6 +58,31 @@ class Solution:
         
         return ans
 
+#time: O(n^2)
+#space: O(1)
+
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        ans = 0
+        for i in range(len(s)):
+            # odd string
+            ans += self.countNumPalidrome(s,i,i)
+            # even string
+            ans += self.countNumPalidrome(s,i,i+1)
+        
+        return ans
+
+        
+
+    def countNumPalidrome(self, ss: str, lo: int, hi: int) -> int:
+        ans = 0
+        while lo >= 0 and hi < len(ss):
+            if ss[lo] != ss[hi]:
+                break
+            lo -= 1
+            hi += 1
+            ans += 1
+        return ans
 
 
 
