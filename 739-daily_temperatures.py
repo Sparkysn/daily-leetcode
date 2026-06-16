@@ -52,6 +52,30 @@ class Solution:
 
         return output
                 
+#time: O(n)
+#space: O(1)
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        
+        n = len(temperatures)
+        ans = [0 for _ in range(n)]
+        hottest = 0
+        
+        for currDay in range(n-1,-1,-1):
+            currTemp = temperatures[currDay]
+            if currTemp >= hottest:
+                hottest = currTemp
+                continue
+            
+            # hotter day must be at least 1 day ahead
+            days = 1
+            while temperatures[currDay + days] <= currTemp:
+                days += ans[currDay + days]
+
+            ans[currDay] = days
+
+        return ans
 
 
 
