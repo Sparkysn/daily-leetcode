@@ -43,6 +43,7 @@ All the values of heights are unique.
 
 #time: O(n)
 #space: O(n)
+# left to right
 
 class Solution:
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
@@ -56,5 +57,24 @@ class Solution:
                 ans[stack[-1]] += 1
             stack.append(index)
 
+        return ans
+# time: O(n)
+# space: O(n)
+# right to left
+
+class Solution:
+    def canSeePersonsCount(self, heights: List[int]) -> List[int]:
+        stack = []
+        ans = [0] * len(heights)
+        
+        for index in range(len(heights)-1,-1,-1):
+            height = heights[index]
+            while stack and heights[stack[-1]] < height:
+                stack.pop()
+                ans[index] += 1
+            if stack:
+                ans[index] += 1
+            stack.append(index)
+        
         return ans
             
