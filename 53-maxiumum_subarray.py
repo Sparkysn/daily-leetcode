@@ -49,3 +49,18 @@ class Solution:
                 max_sum = max(max_sum, current_sum)
 
         return max_sum
+
+#time: O(n)
+#space: O(1)
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        max_subarray = current_subarray = nums[0]
+
+        for num in nums[1:]:
+            if current_subarray <= 0:
+                current_subarray = num
+            else:
+                current_subarray += num
+            max_subarray = max(max_subarray, current_subarray)
+        return max_subarray
