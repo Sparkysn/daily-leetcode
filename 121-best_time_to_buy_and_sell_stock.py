@@ -44,4 +44,19 @@ class Solution:
                 profit = max(profit, prices[j] - prices[i])
         return 0 if profit <= 0 else profit
 
+#time: O(n)
+#space: O(1)
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+
+        min_price = float("inf")
+        max_profit = 0
+        for i in range(len(prices)):
+            if prices[i] < min_price:
+                min_price = prices[i]
+            profit = prices[i] - min_price
+            if profit > max_profit:
+                max_profit = profit
+        return max_profit
+ 
