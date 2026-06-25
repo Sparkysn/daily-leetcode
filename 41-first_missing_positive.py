@@ -36,7 +36,7 @@ Constraints:
 """
 
 #time: O(n)
-#space: O(1)
+#space: O(1) inplace/auxiliary
 
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
@@ -72,4 +72,30 @@ class Solution:
         
         # if all nums have negative values (all exist)
         return n + 1
+
+
+#time: O(n)
+#space: O(1) inplace/auxiliary
+
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        
+        n = len(nums)
+
+        # cycle sort
+        i = 0
+        while i < n:
+            correct_idx = nums[i] - 1
+            if 0 < nums[i] <= n and nums[correct_idx] != nums[i]:
+                nums[i], nums[correct_idx] = nums[correct_idx], nums[i]
+            else:
+                i += 1
+        
+        for i in range(n):
+            if nums[i] != i + 1:
+                return i + 1
+        
+        return n + 1
+
+
         
