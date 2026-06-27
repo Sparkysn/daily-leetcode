@@ -49,3 +49,22 @@ class Solution:
                 max_product = max(max_product, product)
         return max_product if max_product != float('-inf') else 0
             
+
+
+
+#time: O(n)
+#space: O(1)
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        # initialise 
+        max_so_far = min_so_far = result = nums[0]
+        for i in range(1,len(nums)):
+            curr = nums[i]
+            temp_max = max(curr, max(min_so_far * curr, max_so_far * curr))
+            min_so_far = min(curr, min(min_so_far * curr, max_so_far * curr))
+            
+            max_so_far = temp_max
+            result = max(max_so_far, result)
+        
+        return result
