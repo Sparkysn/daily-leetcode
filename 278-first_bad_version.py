@@ -52,6 +52,8 @@ class Solution:
 
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
@@ -64,6 +66,12 @@ class Solution:
                 right = mid
             else:
                 left = mid + 1
-        return left + 1
+            
+        if isBadVersion(left+1):
+            return left+1
+
+        return -1
+
+        
 
         
