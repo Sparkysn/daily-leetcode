@@ -70,7 +70,44 @@ class Solution:
         
         return binarySearch(left,  len(nums) - 1, target)
 
+#time: O(logn)
+#space: O(1)
+# alternative algo, using % n
 
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        left = 0
+        right = n - 1
+
+        while left <= right:
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[-1]:
+                left = mid + 1
+            else: 
+                right = mid - 1
+        
+        def shiftedBinarySearch(pivot_index, target):
+            left = 0
+            right = n - 1
+            shift = n - pivot_index
+
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums[(mid-shift) % n] == target:
+                    return (mid-shift) % n
+                elif nums[(mid-shift) % n] > target:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return -1
+        
+        return shiftedBinarySearch(left, target)
+
+
+                 
+
+        
                  
 
         
