@@ -35,6 +35,16 @@ arr is sorted in ascending order.
 -104 <= arr[i], x <= 104
 """
 
+#time: O(nlogn)
+#space: O(n)
+
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        new_arr = sorted(arr, key=lambda num: abs(num-x))
+
+        k_closest = new_arr[:k]
+        return sorted(k_closest)
+
 #time: O(logn)
 #space: O(n)
 
