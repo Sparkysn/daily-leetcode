@@ -43,6 +43,41 @@ Constraints:
 #time: O(n^2)
 #space: O(n)
 
+# two pointer
+
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        ans = []
+        nums.sort()
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i-1] != nums[i]:
+                self.twoSum(nums,i,ans)
+        return ans
+
+    def twoSum(self, nums: list[int], i: int, ans: list[list[int]]):
+        lo, hi = i + 1, len(nums) - 1
+        while lo < hi:
+            sum_num = nums[i] + nums[lo] + nums[hi]
+            if sum_num < 0:
+                lo += 1
+            elif sum_num > 0:
+                hi -= 1
+            else:
+                ans.append([nums[i],nums[lo],nums[hi]])
+                lo += 1
+                hi -= 1
+                while lo < hi and nums[lo] == nums[lo-1]:
+                    lo += 1
+
+        
+
+#time: O(n^2)
+#space: O(n)
+
+# hashset
+
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         ans = []
@@ -72,7 +107,7 @@ class Solution:
 #time: O(n^2)
 #space: O(n)
 
-# prevent populating again for set
+# prevent populating again for hashset 
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         ans, dups = set(), set()
