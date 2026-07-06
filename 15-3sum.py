@@ -69,5 +69,23 @@ class Solution:
             seen.add(nums[j])
             j += 1
 
+#time: O(n^2)
+#space: O(n)
 
-        
+# prevent populating again for set
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        ans, dups = set(), set()
+        seen = {}
+
+        for i, val1 in enumerate(nums):
+            if val1 not in dups:
+                dups.add(val1)
+                for j, val2 in enumerate(nums[i+1:]):
+                    complement = -val1 - val2
+                    if complement in seen and seen[complement] == i:
+                        sorted_list = sorted([val1,val2,complement])
+                        ans.add(tuple(sorted_list))
+                    seen[val2] = i
+        return [list(x) for x in ans]
+
