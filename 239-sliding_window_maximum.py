@@ -41,6 +41,8 @@ Constraints:
 #time: O(n^2)
 #space: O(n)
 
+# brute force
+
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         max_array = []
@@ -50,3 +52,29 @@ class Solution:
                 temp_max_number = max(temp_max_number,nums[j])
             max_array.append(temp_max_number)
         return max_array
+
+#time: O(n)
+#space: O(n)
+
+# deque
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        window = deque()
+        ans_array = []
+        
+        for i in range(len(nums)):
+            # remove indices outside of window
+            while window and window[0] <= i - k:
+                window.popleft()
+            # remove indices that are lesser than current nums[i], as they will never be max
+            while window and nums[window[-1]] < nums[i]:
+                window.pop()
+            
+            window.append(i)
+
+            # add max into answer if window is formed
+            if i >= k - 1:
+                ans_array.append(nums[window[0]])
+        return ans_array
+            
