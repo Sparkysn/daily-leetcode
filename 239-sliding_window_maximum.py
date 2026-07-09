@@ -77,4 +77,36 @@ class Solution:
             if i >= k - 1:
                 ans_array.append(nums[window[0]])
         return ans_array
-            
+
+
+#time: O(n)
+#space: O(n)
+
+# dynamic programming
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        n = len(nums)
+        left = [0]* n
+        right = [0]* n
+        ans_array = [0]* (n - k + 1)
+
+        for i in range(n):
+            if i % k == 0:
+                left[i] = nums[i]
+            else:
+                left[i] = max(nums[i],left[i-1])
+        right[n-1] = nums[n-1]
+        for i in range(n-2,-1,-1):
+            if (i+1) % k == 0:
+                right[i] = nums[i]
+            else:
+                right[i] = max(nums[i],right[i+1])
+        
+        for i in range(n-k+1):
+            ans_array[i] = max(right[i],left[i+k-1])
+
+        return ans_array
+
+
+
