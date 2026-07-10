@@ -40,6 +40,19 @@ s consists only of printable ASCII characters.
 
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        filtered_s = []
+        for char in s:
+            if char.isalnum():
+                filtered_s.append(char.lower())
+        reverse_filtered_s = filtered_s[::-1]
+        return filtered_s == reverse_filtered_s
+            
+
+#time: O(n)
+#space: O(n)
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
         res = []
         for char in s:
             if char.isalnum():
