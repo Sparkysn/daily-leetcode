@@ -37,13 +37,9 @@ Follow up: What if the inputs contain Unicode characters? How would you adapt yo
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) <= len(t):
-            return self.checkAnagram(s,t)
-        else:
-            return self.checkAnagram(t,s)
-
-    def checkAnagram(self, s: str, t: str) -> bool:
-        # make sure t is <= s
+        if len(s) != len(t):
+            return False
+        
         letter_dict = {}
         for char in s:
             if char not in letter_dict:
