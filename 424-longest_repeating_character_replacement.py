@@ -91,3 +91,31 @@ class Solution:
 
         return False
 
+# time: O(mn) -> O(n)
+# space: O(1)
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        chars = set(s)
+        max_length = 0
+
+        for char in chars:
+            start = 0
+            count = 0
+
+            for end in range(len(s)):
+                if s[end] == char:
+                    count += 1
+
+                while not self.isValidWindow(start, end, count, k):
+                    if s[start] == char:
+                        count -= 1
+                    start += 1
+                max_length = max(max_length, end - start + 1)
+                
+        return max_length
+
+    def isValidWindow(self, start: int, end: int, count: int, k: int) -> int:
+        return (end - start + 1) - count <= k
+
+
