@@ -50,3 +50,44 @@ class Solution:
                     ans = max(ans,length_substring)
 
         return ans
+
+#time: O(nlogn)
+#space: O(1)
+
+# binarysearch + sliding window
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        lo, hi = 1, len(s)
+
+        while lo + 1 < hi:
+            mid = lo + (hi - lo) // 2
+            if self.canMakeValidSubString(mid, s, k):
+                lo = mid
+            else:
+                hi = mid
+        
+        if self.canMakeValidSubString(hi, s ,k):
+            return hi
+        if self.canMakeValidSubString(lo, s, k):
+            return lo
+        return 1
+    def canMakeValidSubString(self, windowLength: int, s: str, k: int) -> bool:
+        start = 0
+        maxFrequency = 0
+        freq = {}
+
+        for end in range(len(s)):
+            freq[s[end]] = freq.get(s[end], 0) + 1
+
+            if end - start + 1 > windowLength:
+                freq[s[start]] -= 1
+                start += 1
+            
+            if end - start + 1 == windowLength:
+                maxFrequency = max(freq.values())
+                if maxFrequency + k >= windowLength:
+                    return True
+
+        return False
+
