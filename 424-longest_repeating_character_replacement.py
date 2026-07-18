@@ -94,6 +94,8 @@ class Solution:
 # time: O(mn) -> O(n)
 # space: O(1)
 
+# sliding window (slow)
+
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         chars = set(s)
@@ -119,3 +121,27 @@ class Solution:
         return (end - start + 1) - count <= k
 
 
+# time: O(n)
+# space: O(1)
+
+# sliding window (fast)
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        start = 0
+        freq = {}
+        max_freq = 0
+        longest_substring_length = 0
+
+        for end in range(len(s)):
+            freq[s[end]] = freq.get(s[end], 0) + 1
+
+            max_freq = max(max_freq, freq[s[end]])
+
+            is_valid = (end - start + 1) - max_freq <= k
+            if not is_valid:
+                freq[s[start]] -= 1
+                start += 1
+            
+            longest_substring_length = end - start + 1
+        return longest_substring_length
