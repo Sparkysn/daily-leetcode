@@ -35,6 +35,8 @@ s and p consist of lowercase English letters.
 # time: O(n)
 # space: O(1)
 
+# hashmap matching (slower)
+
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         counter_p = Counter(p)
@@ -52,6 +54,31 @@ class Solution:
                 start += 1
             # valid window length below
             if counter_p == counter_s:
+                ans.append(start)
+        return ans
+
+# time: O(n)
+# space: O(1)
+
+# array matching (faster)
+
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        array_s = [0] * 26
+        array_p = [0] * 26
+        ans = []
+        start = 0
+
+        for char in p:
+            array_p[ord(char) - ord('a')] += 1
+        
+        for end in range(len(s)):
+            array_s[ord(s[end]) - ord('a')] += 1
+            if end - start + 1 > len(p):
+                array_s[ord(s[start]) - ord('a')] -= 1
+                start += 1
+            # window below is valid
+            if array_s == array_p:
                 ans.append(start)
         return ans
             
