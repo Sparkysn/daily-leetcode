@@ -54,6 +54,8 @@ Output: [""]
 # time: O(n)
 # space: O(n)
 
+# non-ascii char
+
 class Codec:
     def encode(self, strs: List[str]) -> str:
         """Encodes a list of strings to a single string.
@@ -65,6 +67,73 @@ class Codec:
         """Decodes a single string to a list of strings.
         """
         return s.split('π')
+
+# time: O(n)
+# space: O(n)
+
+# escape char
+
+class Codec:
+    def encode(self, strs: List[str]) -> str:
+        """Encodes a list of strings to a single string.
+        """
+        encoded_string = ''
+        for s in strs:
+            encoded_string += s.replace('/','//') + '/:'
+        return encoded_string
+        
+
+    def decode(self, s: str) -> List[str]:
+        """Decodes a single string to a list of strings.
+        """
+        decoded_string = []
+        current_string = ''
+        i = 0
+
+        while i < len(s):
+            if s[i:i+2] == '/:':
+                decoded_string.append(current_string)
+                current_string = ''
+                i += 2
+            elif s[i:i+2] == '//':
+                current_string += '/'
+                i += 2
+            else:
+                current_string += s[i]
+                i += 1
+        return decoded_string
+     
+
+# time: O(n)
+# space: O(n)
+
+# length checking
+
+class Codec:
+    def encode(self, strs: List[str]) -> str:
+        """Encodes a list of strings to a single string.
+        """
+        encoded_string = ''
+        for s in strs:
+            encoded_string += str(len(s)) + '/:' + s
+        return encoded_string
+        
+
+    def decode(self, s: str) -> List[str]:
+        """Decodes a single string to a list of strings.
+        """
+        decoded_string = []
+        current_string = ''
+        i = 0
+
+        while i < len(s):
+            delim = s.find('/:', i)
+            length = int(s[i:delim])
+            str_ = s[delim+2:delim+2+length]
+            decoded_string.append(str_)
+            i = delim + 2 + length
+        return decoded_string
+     
         
 
 
