@@ -59,4 +59,26 @@ class Solution:
             else:
                 magazine_counter[char] -= 1
         return True
-                
+
+# time: O(nlogn)
+# space: O(n)
+
+# sort and stack
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        if len(ransomNote) > len(magazine):
+            return False
+        ransomNote = sorted(ransomNote,reverse=True)
+        magazine = sorted(magazine,reverse=True)
+        while ransomNote and magazine:
+            if ransomNote[-1] == magazine[-1]:
+                ransomNote.pop()
+                magazine.pop()
+            elif magazine[-1] < ransomNote[-1]:
+                magazine.pop()
+            else:
+                return False
+        if ransomNote:
+            return False
+        return True
