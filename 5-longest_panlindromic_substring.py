@@ -27,6 +27,32 @@ Constraints:
 s consist of only digits and English letters.
 """
 
+# time: O(n^3)
+# space: O(1)
+
+# brute force with optimization
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        for length in range(n,0,-1):
+            for start in range(n - length + 1):
+                if self.checkPalindrome(start, start + length, s):
+                    return s[start:start+length]
+    
+
+    def checkPalindrome(self, i: int, j: int, s: str) -> bool:
+        left = i
+        right = j - 1
+
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        
+        return True
+
 # time: O(n^2)
 # space: O(n^2)
 
