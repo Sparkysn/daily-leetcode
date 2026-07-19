@@ -129,17 +129,38 @@ class Solution:
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        # Step 1: Transform s by inserting '#' between chars and at both ends.
+        # This makes every palindrome (odd or even length in original s)
+        # become an ODD-length palindrome in s_prime, centered on a real char.
+        # e.g. "abba" -> "#a#b#b#a#"
         s_prime = "#" + "#".join(s) + "#"
         n = len(s_prime)
+
+        # palindrome_radii[i] = radius of palindrome centered at i in s_prime
+        # (radius = how far it extends left/right, NOT counting the center)
         palindrome_radii = [0] * n
+
+        # center = center of the rightmost-reaching palindrome found so far
+        # radius = the right boundary that palindrome reaches (center + its radius)
         center = radius = 0
 
         for i in range(n):
+            # mirror = the reflection of i across the current center.
+            # If a palindrome exists at 'center', whatever's true at 'mirror'
+            # is mirrored at 'i' -- as long as we stay within the known palindrome.
             mirror = 2 * center - i
 
             if i < radius:
+                # i is inside the current rightmost palindrome, so we can
+                # borrow the radius already computed at the mirror position.
+                # Capped by (radius - i) because the mirror's palindrome might
+                # stick out past our current verified boundary -- can't trust
+                # that unverified part yet, must expand manually to confirm.
                 palindrome_radii[i] = min(radius - i, palindrome_radii[mirror])
 
+            # Try to expand the palindrome centered at i outward,
+            # character by character, checking bounds first (short-circuit
+            # evaluation means we only index s_prime if bounds are safe).
             while (
                 i + 1 + palindrome_radii[i] < n
                 and i - 1 - palindrome_radii[i] >= 0
@@ -148,13 +169,20 @@ class Solution:
             ):
                 palindrome_radii[i] += 1
 
+            # If this palindrome reaches further right than any before,
+            # update our reference center/radius for future mirror lookups.
             if i + palindrome_radii[i] > radius:
                 center = i
                 radius = i + palindrome_radii[i]
 
+        # The largest radius found equals the longest palindrome's LENGTH
+        # in the original string s (a side effect of the '#' padding trick).
         max_length = max(palindrome_radii)
         center_index = palindrome_radii.index(max_length)
-        start_index = (center_index - max_length) // 2
-        longest_palindrome = s[start_index : start_index + max_length]
 
+        # Convert center_index (in s_prime) back to a start index in s.
+        # Dividing by 2 undoes the interleaved '#' characters.
+        start_index = (center_index - max_length) // 2
+
+        longest_palindrome = s[start_index : start_index + max_length]
         return longest_palindrome
