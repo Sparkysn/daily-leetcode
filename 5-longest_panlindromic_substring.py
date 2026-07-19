@@ -30,7 +30,7 @@ s consist of only digits and English letters.
 # time: O(n^3)
 # space: O(1)
 
-# brute force with optimization
+# brute force with optimization, decrease from big window
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
@@ -52,6 +52,37 @@ class Solution:
             right -= 1
         
         return True
+
+# time: O(n^2)
+# space: O(1)
+
+# expand from center
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        ans = [0, 0]
+
+        for i in range(len(s)):
+            odd_length = self.expand(i,i,s)
+            if odd_length > ans[1] - ans[0] + 1:
+                dist = odd_length // 2
+                ans = [i-dist,i+dist]
+
+            even_length = self.expand(i,i+1,s)
+            if even_length > ans[1] - ans[0] + 1:
+                dist = (even_length // 2) - 1
+                ans = [i-dist,i+dist+1]
+        return s[ans[0]:ans[1]+1]
+    
+    def expand(self, i: int, j: int, s: str) -> int:
+        left = i
+        right = j
+
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        # left and right was expanded by 2
+        return right - left + 1 -2
 
 # time: O(n^2)
 # space: O(n^2)
