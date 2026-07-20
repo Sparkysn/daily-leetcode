@@ -94,6 +94,29 @@ class Solution:
         for i in range(n):
             if nums[i] != i + 1:
                 return i + 1
+
+#time: O(n)
+#space: O(n)
+
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+
+        n = len(nums)
+
+        int_array = [False] * (n + 1)
+
+        # initalise the int_array lookup
+        for i in range(n):
+            if nums[i] < (n + 1) and nums[i] >= 1:
+                int_array[nums[i]] = True
+        
+        for i in range(1,n+1):
+            if int_array[i] == False:
+                return i
+        return i+1
+        
+
+
         
         return n + 1
 
