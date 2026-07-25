@@ -42,3 +42,24 @@ class Solution:
             for curr in newSubsets:
                 ans.append(curr)
         return ans
+
+
+# time: O(n*2^n)
+# space: O(n)
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        n = len(nums)
+        def backTrack(curr: str, start: int):
+            ans.append(curr[:])
+            for i in range(start,n):
+                curr.append(nums[i])
+                backTrack(curr, i + 1)
+                curr.pop()
+        backTrack([],0)
+        return ans
+
+
+
+
