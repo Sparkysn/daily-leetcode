@@ -60,6 +60,24 @@ class Solution:
         backTrack([],0)
         return ans
 
+# time: O(n*2^n)
+# space: O(n)
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        ans = []
+
+        for i in range(2**n):
+            bitmask = bin(i)[2:].zfill(n)
+            # can do shift left and dont do zfill too, range(2**n,2**(n+1))
+            # bin(i)[3:]
+            subset = []
+            for j in range(n):
+                if bitmask[j] == "1":
+                    subset.append(nums[j])
+            ans.append(subset)
+        return ans
 
 
 
