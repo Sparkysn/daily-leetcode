@@ -61,7 +61,45 @@ class Solution:
                 heappush(min_heap, (matrix[row][column+1], row, column+1))
             k -= 1
         return value
-                    
+
+# time: O(nlogn)
+# space: O(1)
+
+# binary search (as row & col is sorted)
+
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        start = matrix[0][0]
+        end = matrix[n-1][n-1]
+        while start < end:
+            mid = start + (end - start) // 2
+            smaller, larger = (matrix[0][0], matrix[n-1][n-1])
+            count, smaller, larger = self.countLessEqual(matrix, mid, smaller, larger)
+            
+            if count == k:
+                return smaller
+            elif count < k:
+                start = larger # search higher
+            else:
+                end = smaller # search lower
+        return start
+
+    def countLessEqual(self, matrix, mid, smaller, larger):
+        n = len(matrix)
+        count = 0
+        row = n - 1
+        col = 0
+
+        while row >= 0 and col < n:
+            if matrix[row][col] > mid:
+                larger = min(larger,matrix[row][col])
+                row -= 1
+            else:
+                smaller = max(smaller,matrix[row][col])
+                col += 1
+                count += row + 1
+        return count,smaller,larger
 
                 
                 
