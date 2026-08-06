@@ -61,8 +61,8 @@ class Solution:
             return (prev + curr) / 2
         return curr
 
-# time: O(log(n+m))
-# space: O(log(n+m))
+# time: O(log(n) + log(m)) = O(log(nm))
+# space: O(log(n) + log(m)) = O(log(nm))
 
 # binary search 
 
