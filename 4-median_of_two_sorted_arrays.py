@@ -61,6 +61,54 @@ class Solution:
             return (prev + curr) / 2
         return curr
 
+# time: O(log(n+m))
+# space: O(log(n+m))
+
+# binary search 
+
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        A, B = nums1, nums2
+        na, nb = len(A), len(B)
+        n = na + nb
+
+        def solve(k, a_start, a_end, b_start, b_end):
+            # if segment of the array is empty, means all index is processed, the answer lies in other array
+            # take the offset of opposite array
+            # note that if a_start == a_end, means still have 1 index in array
+            if a_start > a_end:
+                return B[k-a_start]
+            if b_start > b_end:
+                return A[k-b_start]
+            # get middle index 
+            a_index, b_index = (a_start + a_end) // 2, (b_start + b_end) // 2
+            a_value, b_value = A[a_index], B[b_index]
+
+            # if k is right of half of (A + B), remove smaller left half
+            if a_index + b_index < k:
+                if a_value > b_value:
+                    return solve(k, a_start, a_end, b_index + 1, b_end)
+                else:
+                    return solve(k, a_index + 1, a_end, b_start, b_end)
+            # k left of half of (A + B), remove bigger right half
+            else:
+                if a_value > b_value:
+                    return solve(k, a_start, a_index - 1, b_start, b_end)
+                else:
+                    return solve(k, a_start, a_end, b_start, b_index - 1)
+        # odd, take middle
+        if n % 2 != 0:
+            return solve(n//2,0,na-1,0,nb-1)
+        # even, take avg
+        else:
+            return (
+                solve(n // 2, 0, na - 1, 0, nb - 1)
+                + solve(n // 2 - 1, 0, na - 1, 0, nb - 1)
+            ) / 2
+
+
+
+
                 
                 
 
