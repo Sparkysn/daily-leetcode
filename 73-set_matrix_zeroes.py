@@ -60,7 +60,49 @@ class Solution:
             for c in range(len(matrix[0])):
                 if r in row_to_zero or c in col_to_zero:
                     matrix[r][c] = 0
+
+# time: O(n*m)
+# space: O(1)
+
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        m, n = len(matrix), len(matrix[0])
+        row_flag = False
+        col_flag = False
+        # see if row 0 and col 0 has any 0's
+        for c in range(n):
+            if matrix[0][c] == 0:
+                row_flag = True
+                break
+        for r in range(m):
+            if matrix[r][0] == 0:
+                col_flag = True
+                break
+        # use row 0 and col 0 as markers
+        for r in range(1,m):
+            for c in range(1,n):
+                if matrix[r][c] == 0:
+                    matrix[r][0] = 0
+                    matrix[0][c] = 0
+        # zero out based on markers
+        for r in range(1,m):
+            for c in range(1,n):
+                if matrix[r][0] == 0 or matrix[0][c] == 0:
+                    matrix[r][c] = 0
+        # handle row 0 and col 0 based on flags
+        if row_flag:
+            for c in range(n):
+                matrix[0][c] = 0
+        if col_flag:
+            for r in range(m):
+                matrix[r][0] = 0
+
                     
+                
+        
                 
         
 
