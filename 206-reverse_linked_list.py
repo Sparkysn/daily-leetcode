@@ -36,6 +36,8 @@ Follow up: A linked list can be reversed either iteratively or recursively. Coul
 # time: O(n)
 # space: O(1)
 
+# iterative
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -51,5 +53,29 @@ class Solution:
             prev = curr
             curr = next_temp
         return prev
+
+# time: O(n)
+# space: O(n)
+
+# recursive
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return None
+        
+        newHead = head
+        if head.next:
+            newHead = self.reverseList(head.next)
+            head.next.next = head
+        head.next = None
+
+        return newHead
+        
 
         
