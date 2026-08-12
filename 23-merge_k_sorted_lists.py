@@ -46,7 +46,7 @@ The sum of lists[i].length will not exceed 104.
 # time: O(nlogn)
 # space: O(n)
 
-# brute force
+# brute force (sort at end)
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -66,6 +66,35 @@ class Solution:
             point = point.next
         return head.next
 
+# brute force 
+
+# time: O(kn)
+# space: O(1)
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+
+        while True:
+            min_idx = -1
+            for i, node in enumerate(lists):
+                if node is not None:
+                    if min_idx == -1 or node.val < lists[min_idx].val:
+                        min_idx = i
+            # all list exhausted
+            if min_idx == -1:
+                break
+            
+            tail.next = lists[min_idx]
+            lists[min_idx] = lists[min_idx].next
+            tail = tail.next
+        return dummy.next
             
 
 
