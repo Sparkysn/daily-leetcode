@@ -124,6 +124,41 @@ class Solution:
                 heapq.heappush(heap, (node.next.val, i, node.next))
         return dummy.next
 
+# time: O(kn)
+# space: O(1)
 
+# merge 1 by 1
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+        
+        result = lists[0]
+        for i in range(1, len(lists)):
+            result = self.mergeTwoLists(result, lists[i])
+        return result
+
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+
+        tail.next = l1 if l1 else l2
+
+        return dummy.next
 
 
