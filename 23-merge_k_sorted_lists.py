@@ -66,10 +66,11 @@ class Solution:
             point = point.next
         return head.next
 
-# brute force 
 
 # time: O(kn)
 # space: O(1)
+
+# brute force 
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -95,6 +96,34 @@ class Solution:
             lists[min_idx] = lists[min_idx].next
             tail = tail.next
         return dummy.next
-            
+
+# time: O(nlogk)
+# space: O(k)
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+        heap = []
+
+        for i, node in enumerate(lists):
+            if node is not None:
+                heapq.heappush(heap, (node.val, i, node))
+        
+        while heap:
+            val, i, node = heapq.heappop(heap)
+            tail.next = node
+            tail = tail.next
+
+            if node.next is not None:
+                heapq.heappush(heap, (node.next.val, i, node.next))
+        return dummy.next
+
+
 
 
