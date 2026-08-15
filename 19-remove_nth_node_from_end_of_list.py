@@ -39,6 +39,8 @@ Follow up: Could you do this in one pass?
 # time: O(n)
 # space: O(1)
 
+# two pass
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -65,5 +67,31 @@ class Solution:
             first = first.next
         first.next = first.next.next
         return dummy.next
-            
-        
+
+# time: O(n)
+# space: O(1)
+
+# one pass
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head
+        first = dummy
+        second = dummy
+
+        # advance first pointer to such that the gap is n nodes apart
+        for i in range(n+1):
+            first = first.next
+        # Move first to end, maintain the gap
+        while first is not None:
+            first = first.next
+            second = second.next
+        second.next = second.next.next
+
+        return dummy.next
