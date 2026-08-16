@@ -46,7 +46,47 @@ All the calls to pop and peek are valid.
 Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
 """
 
-# two stack, push O(1), pop O(n)
+# two stack, push O(n), pop O(1)
+
+class MyQueue:
+
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+        self.top = 0
+
+    def push(self, x: int) -> None:
+        if not self.s1:
+            self.top = x
+        while self.s1:
+            self.s2.append(self.s1.pop())
+
+        self.s2.append(x)
+        while self.s2:
+            self.s1.append(self.s2.pop())        
+
+    def pop(self) -> int:
+        result = self.s1.pop()
+        if self.s1:
+            self.front = self.s1[-1]
+        return result
+
+    def peek(self) -> int:
+        return self.s1[-1]
+
+    def empty(self) -> bool:
+        return len(self.s1) == 0
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+# two stack, push O(1), pop O(1), only O(n) if s2 is empty, optimized
 
 class MyQueue:
 
