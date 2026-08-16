@@ -85,3 +85,30 @@ class MyStack:
 # param_2 = obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.empty()
+
+# two queue, push O(n), pop O(1)
+
+class MyStack:
+
+    def __init__(self):
+        self.q1 = deque()
+        self.q2 = deque()
+
+    def push(self, x: int) -> None:
+        self.q2.append(x)
+        while len(self.q1) != 0:
+            self.q2.append(self.q1.popleft())
+        self.q1, self.q2 = self.q2, self.q1
+        
+    def pop(self) -> int:
+        return self.q1.popleft()
+        
+
+    def top(self) -> int:
+        return self.q1[0]
+
+    def empty(self) -> bool:
+        return len(self.q1) == 0
+        
+
+
