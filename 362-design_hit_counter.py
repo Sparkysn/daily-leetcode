@@ -65,3 +65,32 @@ class HitCounter:
 # obj = HitCounter()
 # obj.hit(timestamp)
 # param_2 = obj.getHits(timestamp)
+
+# optimized
+
+class HitCounter:
+
+    def __init__(self):
+        self.deque = deque()
+        self.total = 0
+
+
+    def hit(self, timestamp: int) -> None:
+        if self.deque and self.deque[-1][0] == timestamp:
+            self.deque[-1][1] += 1
+        else:
+            self.deque.append([timestamp, 1])
+        self.total += 1
+
+    def getHits(self, timestamp: int) -> int:
+        while self.deque and (timestamp - self.deque[0][0] >= 300):
+            self.total -= self.deque[0][1]
+            self.deque.popleft()
+        return self.total
+
+
+
+# Your HitCounter object will be instantiated and called as such:
+# obj = HitCounter()
+# obj.hit(timestamp)
+# param_2 = obj.getHits(timestamp)
