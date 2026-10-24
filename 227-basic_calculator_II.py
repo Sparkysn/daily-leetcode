@@ -63,4 +63,32 @@ class Solution:
                 op = ch
         return sum(stack)
 
+# time: O(n)
+# space: O(1)
+
+class Solution:
+    def calculate(self, s: str) -> int:
+        result = 0
+        last_number = 0
+        op = '+'
+        num = 0
+        for index, ch in enumerate(s):
+            if ch.isdigit():
+                num = num*10 + int(ch)
+            # make sure settle the last operator when its last string
+            if ch in '+-*/' or index == len(s) - 1:  
+                if op == '+':
+                    result += last_number
+                    last_number = num
+                elif op == '-':
+                    result += last_number
+                    last_number = -num
+                elif op == '*':
+                    last_number *= num
+                elif op == "/":
+                    last_number = int(last_number/num)
+                op = ch
+                num = 0
+        return result + last_number
+
 
