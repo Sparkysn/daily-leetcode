@@ -30,7 +30,7 @@ The number of nodes in the tree is in the range [0, 104].
 
 # time: O(n)
 # space: O(logn)
-# BFS
+# DFS
 
 # Definition for a binary tree node.
 # class TreeNode:
