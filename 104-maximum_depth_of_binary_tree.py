@@ -48,3 +48,27 @@ class Solution:
             return max(left_height, right_height) + 1
 
   
+# time: O(n)
+# space: O(logn)
+# iterative
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: TreeNode | None) -> int:
+        stack = []
+        if root:
+            stack.append((1,root))
+        depth = 0
+        while stack:
+            current_depth, node = stack.pop()
+            depth = max(depth,current_depth)
+            if node.left:
+                stack.append((current_depth+1,node.left))
+            if node.right:
+                stack.append((current_depth+1,node.right))
+        return depth
