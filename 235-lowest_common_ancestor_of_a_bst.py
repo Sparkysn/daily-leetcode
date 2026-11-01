@@ -40,7 +40,6 @@ p and q will exist in the BST.
 
 # time: O(n)
 # space: O(n)
-# recursive BFS
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -65,7 +64,6 @@ class Solution:
         
 # time: O(n)
 # space: O(1)
-# iterative BFS
 
 # Definition for a binary tree node.
 # class TreeNode:
