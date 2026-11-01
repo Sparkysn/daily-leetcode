@@ -66,7 +66,7 @@ class Solution:
 
 # time: O(n)
 # space: O(n)
-# recursive BFS
+# recursive DFS
 
 # Definition for a binary tree node.
 # class TreeNode:
