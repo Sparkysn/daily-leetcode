@@ -60,6 +60,45 @@ class Solution:
         if isSame(root, subRoot):
             return True
         return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
+
+# time: O(n)
+# space: O(n)
+# iterative via queue
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubtree(self, root: TreeNode | None, subRoot: TreeNode | None) -> bool:
+        def isSame(a,b) -> bool:
+            queue = deque([(a,b)])
+            while queue:
+                x, y = queue.popleft()
+                if not x and not y:
+                    continue
+                if not x or not y or x.val != y.val:
+                    return False
+                queue.append((x.left,y.left))
+                queue.append((x.right,y.right))
+            return True
+        
+        if not subRoot:
+            return True
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            if not node:
+                continue
+            if isSame(node, subRoot):
+                return True
+            queue.append(node.left)
+            queue.append(node.right)
+        return False
+     
+
         
         
 
