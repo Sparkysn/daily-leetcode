@@ -101,12 +101,33 @@ class Solution:
             return inorder(node.right)
         return inorder(root)
 
+# iteration BFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode | None) -> bool:
+        if not root:
+            return False
+        queue = deque([(root, float("-inf"), float("inf"))])
+        while queue:
+            node, lo, hi = queue.popleft()
+            if not lo < node.val < hi:
+                return False
+            if node.left:
+                queue.append((node.left, lo, node.val))
+            if node.right:
+                queue.append((node.right, node.val, hi))
+        return True
 
 
 
-       
 
 
+        
         
 
 
