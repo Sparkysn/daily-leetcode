@@ -69,7 +69,7 @@ class Solution:
         self.dfs(grid, r, c + 1)
 
 # time: O(m*n)
-# space: O(min(m,n))
+# space: O(min(m,n)) Maximum siblings in queue will be min(M, N)
 # BFS via queue
 
 class Solution:
