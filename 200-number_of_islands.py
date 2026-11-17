@@ -68,4 +68,32 @@ class Solution:
         self.dfs(grid, r, c - 1)
         self.dfs(grid, r, c + 1)
 
+# time: O(m*n)
+# space: O(min(m,n))
+# BFS via queue
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+        
+        nr = len(grid)
+        nc = len(grid[0])
+        num_islands = 0
+
+        for r in range(nr):
+            for c in range(nc):
+                if grid[r][c] == "1":
+                    num_islands += 1
+                    grid[r][c] = "0"
+                    queue = deque([(r,c)])
+                    while queue:
+                        row, col = queue.popleft()
+                        for dr, dc in [(-1,0),(1,0),(0,-1),(0,1)]:
+                            nr2, nc2 = row + dr, col + dc
+                            if 0 <= nr2 < nr and 0 <= nc2 < nc and grid[nr2][nc2] == "1":
+                                queue.append((nr2,nc2))
+                                grid[nr2][nc2] = "0"
+        return num_islands
+
 
